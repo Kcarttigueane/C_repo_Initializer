@@ -15,7 +15,7 @@ This script sets up a basic project structure with optional components such as E
 * Install Python 3: https://www.python.org/downloads/
 * Install inquirerPy library:
 ```
-pip install inquirer
+pip3 install InquirerPy
 ```
 
 * Install Criterion for unit testing if necessary : https://criterion.readthedocs.io/en/master/setup.html
