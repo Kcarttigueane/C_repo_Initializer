@@ -257,47 +257,47 @@ re: fclean all
 
 def create_test_makefile(is_epitech_header):
     test_makefile_content = f"""{HEADER_MAKEFILE_CONTENT if is_epitech_header else ""}
-CC  =   gcc --coverage -g3 -I ../include
+CC\t=\tgcc --coverage -g3 -I ../include
 
-RM  =   rm -f
+RM\t=\trm -f
 
-TARGET  =   unit-tests
+TARGET\t=\tunit-tests
 
-SRCS    =   $(wildcard *.c) \\
-            $(wildcard ../lib/*.c) \\
-            $(wildcard ../src/*.c) \\
+SRCS\t=\t$(wildcard *.c) \\
+\t\t\t$(wildcard ../lib/*.c) \\
+\t\t\t$(wildcard ../src/*.c) \\
 
-SRCS    :=  $(filter-out ../main.c, $(SRCS))
-
-
-OBJ =   $(SRCS:.c=.o)
+SRCS\t:=\t$(filter-out ../main.c, $(SRCS))
 
 
-CFLAGS  =   -Wall -Wextra
+OB\t=\t$(SRCS:.c=.o)
 
 
-all : $(TARGET)
-    ./$(TARGET)
+CFLAGS\t=\t-Wall -Wextra
 
 
-$(TARGET) : $(OBJ)
-    $(CC) $(CFLAGS) -o $(TARGET) $(OBJ) -lcriterion
+all\t:\t$(TARGET)
+\t\t./$(TARGET)
 
 
-clean :
-    $(RM) $(OBJ)
+$(TARGET)\t:\t$(OBJ)
+\t$(CC) $(CFLAGS) -o $(TARGET) $(OBJ) -lcriterion
 
 
-fclean : clean
-    $(RM) $(TARGET)
-    $(RM) $(wildcard ../lib/*.gcno)
-    $(RM) $(wildcard ../lib/*.gcda)
-    $(RM) $(wildcard ../src/*.gcno)
-    $(RM) $(wildcard ../src/*.gcda)
-    $(RM) $(wildcard *.gcno)
-    $(RM) $(wildcard *.gcda)
+clean\t:
+\t\t$(RM) $(OBJ)
 
-re : fclean all
+
+fclean\t:\tclean
+\t\t\t$(RM) $(TARGET)
+\t\t\t$(RM) $(wildcard ../lib/*.gcno)
+\t\t\t$(RM) $(wildcard ../lib/*.gcda)
+\t\t\t$(RM) $(wildcard ../src/*.gcno)
+\t\t\t$(RM) $(wildcard ../src/*.gcda)
+\t\t\t$(RM) $(wildcard *.gcno)
+\t\t\t$(RM) $(wildcard *.gcda)
+
+re\t:\tfclean all
 
 .PHONY: all clean fclean re
 """
