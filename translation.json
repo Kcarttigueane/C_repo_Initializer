@@ -1,0 +1,37 @@
+{
+  "english": {
+    "questions": {
+      "binary_name": "Enter your binary file name :",
+      "custom_init": "Do you want to use a custom init ?",
+      "epitech_header": "Do you want an Epitech Header for your files ?",
+      "unit_tests": "Do you want a tests directory with a Makefile for unit tests ?",
+      "lib": "Do you want a lib directory and a lib.h file ?"
+    },
+    "answers": {
+      "yes": "Yes",
+      "no": "No",
+      "custom": "Custom",
+      "classic": "Classic"
+    },
+    "errors": {
+      "binary_name": "Please enter a valid binary file name, you can't leave it blank."
+    }
+  },
+  "french": {
+    "questions": {
+      "binary_name": "Entrez le nom de votre fichier binaire :",
+      "custom_init": "Voulez-vous utiliser un init personnalisé ?",
+      "epitech_header": "Voulez-vous un epitech_header Epitech pour vos fichiers ?",
+      "lib": "Voulez-vous un dossier lib and et un fichier lib.h ?"
+    },
+    "answers": {
+      "yes": "Oui",
+      "no": "Non",
+      "custom": "Personnalisé",
+      "classic": "Classique"
+    },
+    "errors": {
+      "binary_name": "Veuillez entrer un nom de fichier binaire valide, vous ne pouvez pas le laisser vide."
+    }
+  }
+}
