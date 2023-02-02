@@ -14,6 +14,44 @@ current_year = datetime.datetime.now().year
 directory_name = os.path.basename(os.getcwd())
 filename = os.path.basename(__file__)
 
+TRANSLATION_DATA = {
+    "english": {
+        "questions": {
+            "binary_name": "Enter your binary file name :",
+            "custom_init": "Do you want to use a custom init ?",
+            "epitech_header": "Do you want an Epitech Header for your files ?",
+            "unit_tests": "Do you want a tests directory with a Makefile for unit tests ?",
+            "lib": "Do you want a lib directory and a lib.h file ?"
+        },
+        "answers": {
+            "yes": "Yes",
+            "no": "No",
+            "custom": "Custom",
+            "classic": "Classic"
+        },
+        "errors": {
+            "binary_name": "Please enter a valid binary file name, you can't leave it blank."
+        }
+    },
+    "french": {
+        "questions": {
+            "binary_name": "Entrez le nom de votre fichier binaire :",
+            "custom_init": "Voulez-vous utiliser un init personnalisé ?",
+            "epitech_header": "Voulez-vous un epitech_header Epitech pour vos fichiers ?",
+            "lib": "Voulez-vous un dossier lib and et un fichier lib.h ?"
+        },
+        "answers": {
+            "yes": "Oui",
+            "no": "Non",
+            "custom": "Personnalisé",
+            "classic": "Classique"
+        },
+        "errors": {
+            "binary_name": "Veuillez entrer un nom de fichier binaire valide, vous ne pouvez pas le laisser vide."
+        }
+    }
+}
+
 # ! FILE / DIRECTORY NAME :
 
 GITIGNORE_FILENAME = ".gitignore"
@@ -123,10 +161,6 @@ HEADER_MAKEFILE_CONTENT = f"""\
 
 # ! LANGUAGES and TRANSLATIONS:
 
-with open("translation.json") as file:
-    translation_data = json.load(file)
-
-
 def get_language():
     return locale.getdefaultlocale()[0][:2]
 
@@ -138,10 +172,10 @@ LANGUAGE = "french" if get_language() == "fr" else "english"
 
 def ask_question(question_key, default="Yes"):
     return inquirer.select(
-        message=translation_data[LANGUAGE]['questions'][question_key],
+        message=TRANSLATION_DATA[LANGUAGE]['questions'][question_key],
         choices=[
-            Choice(True, name=translation_data[LANGUAGE]['answers']["yes"]),
-            Choice(False, name=translation_data[LANGUAGE]['answers']["no"]),
+            Choice(True, name=TRANSLATION_DATA[LANGUAGE]['answers']["yes"]),
+            Choice(False, name=TRANSLATION_DATA[LANGUAGE]['answers']["no"]),
         ],
         default=default,
     ).execute()
@@ -153,12 +187,12 @@ def ask_for_epitech_header():
 
 def ask_for_custom_init():
     is_custom_init = inquirer.select(
-        message=translation_data[LANGUAGE]['questions']["custom_init"],
+        message=TRANSLATION_DATA[LANGUAGE]['questions']["custom_init"],
         choices=[
             Choice("Classical",
-                   name=translation_data[LANGUAGE]['answers']["classic"]),
+                   name=TRANSLATION_DATA[LANGUAGE]['answers']["classic"]),
             Choice(
-                "Custom", name=translation_data[LANGUAGE]['answers']["custom"]),
+                "Custom", name=TRANSLATION_DATA[LANGUAGE]['answers']["custom"]),
         ],
         default="Classical",
     ).execute()
@@ -333,9 +367,9 @@ def classic_init(binary_name):
 
 def main():
     binary_name = inquirer.text(
-        message=translation_data[LANGUAGE]['questions']["binary_name"],
+        message=TRANSLATION_DATA[LANGUAGE]['questions']["binary_name"],
         validate=lambda binary_name: len(binary_name) > 0,
-        invalid_message=translation_data[LANGUAGE]['errors']["binary_name"],
+        invalid_message=TRANSLATION_DATA[LANGUAGE]['errors']["binary_name"],
     ).execute()
 
     create_gitignore(binary_name)
