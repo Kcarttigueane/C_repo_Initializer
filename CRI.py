@@ -322,6 +322,9 @@ def create_directories(is_unit_tests, is_lib):
 
 
 def create_main_filename(is_epitech_header):
+    if os.path.exists(MAIN_FILENAME):
+        return
+
     with open(MAIN_FILENAME, "w") as file:
         if is_epitech_header:
             file.write(BASIC_HEADER_CONTENT)
