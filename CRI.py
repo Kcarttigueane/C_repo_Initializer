@@ -332,8 +332,7 @@ def create_header_file(is_epitech_header, is_lib):
     with open(header_file, "w") as file:
         if is_epitech_header:
             file.write(BASIC_HEADER_CONTENT)
-        file.write(
-            f"\n#ifndef {directory_name.upper()}_H\n\t#define {directory_name.upper()}_H\n\n\n\n#endif")
+        file.write("\n#pragma once")
 
     if not is_lib:
         return
@@ -341,8 +340,7 @@ def create_header_file(is_epitech_header, is_lib):
     with open(header_lib_file, "w") as lib_file:
         if is_epitech_header:
             lib_file.write(BASIC_HEADER_CONTENT)
-        lib_file.write(
-            f"\n#ifndef _LIB_H\n\t#define _LIB_H\n\n\n\n#endif")
+        lib_file.write("\n#pragma once")
 
 # ! INIT FUNCTIONS :
 
