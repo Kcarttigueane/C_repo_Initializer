@@ -162,8 +162,10 @@ HEADER_MAKEFILE_CONTENT = f"""\
 # ! LANGUAGES and TRANSLATIONS:
 
 def get_language():
-    return locale.getdefaultlocale()[0][:2]
-
+    try:
+        return locale.getdefaultlocale()[0][:2]
+    except (TypeError, IndexError):
+        return "en"
 
 LANGUAGE = "french" if get_language() == "fr" else "english"
 
@@ -213,7 +215,7 @@ def create_makefile(binary_name, is_epitech_header, is_unit_tests, is_lib):
 CC ?=gcc
 RM = rm -f
 
-NAME =  {binary_name}
+NAME = {binary_name}
 SRCS = $(wildcard *.c) \\
        {WILDCARD_LIB_CONTENT if is_lib else ""}
        $(wildcard src/*.c) \\
@@ -255,47 +257,47 @@ re: fclean all
 
 def create_test_makefile(is_epitech_header):
     test_makefile_content = f"""{HEADER_MAKEFILE_CONTENT if is_epitech_header else ""}
-CC			=	gcc --coverage -g3 -I ../include
+CC  =   gcc --coverage -g3 -I ../include
 
-RM			= 	rm -f
+RM  =   rm -f
 
-TARGET		=	unit-tests
+TARGET  =   unit-tests
 
-SRCS		=	$(wildcard *.c)		\\
-				$(wildcard ../lib/*.c)		\\
-				$(wildcard ../src/*.c)		\\
+SRCS    =   $(wildcard *.c) \\
+            $(wildcard ../lib/*.c) \\
+            $(wildcard ../src/*.c) \\
 
-SRCS := $(filter-out ../main.c $(SRCS))
-
-
-OBJ			= 	$(SRCS:.c=.o)
+SRCS    :=  $(filter-out ../main.c, $(SRCS))
 
 
-CFLAGS		= 	-Wall -Wextra
+OBJ =   $(SRCS:.c=.o)
 
 
-all			:	$(TARGET)
-			./$(TARGET)
+CFLAGS  =   -Wall -Wextra
 
 
-$(TARGET)	:	$(OBJ)
-	$(CC) $(CFLAGS) -o $(TARGET) $(OBJ) -lcriterion
+all : $(TARGET)
+    ./$(TARGET)
 
 
-clean		:
-			$(RM) $(OBJ)
+$(TARGET) : $(OBJ)
+    $(CC) $(CFLAGS) -o $(TARGET) $(OBJ) -lcriterion
 
 
-fclean		:	clean
-            $(RM) $(TARGET)
-			$(RM) $(wildcard ../lib/*.gcno)
-            $(RM) $(wildcard ../lib/*.gcda)
-			$(RM) $(wildcard ../src/*.gcno)
-            $(RM) $(wildcard ../src/*.gcda)
-            $(RM) $(wildcard *.gcno)
-            $(RM) $(wildcard *.gcda)
+clean :
+    $(RM) $(OBJ)
 
-re			:	fclean all
+
+fclean : clean
+    $(RM) $(TARGET)
+    $(RM) $(wildcard ../lib/*.gcno)
+    $(RM) $(wildcard ../lib/*.gcda)
+    $(RM) $(wildcard ../src/*.gcno)
+    $(RM) $(wildcard ../src/*.gcda)
+    $(RM) $(wildcard *.gcno)
+    $(RM) $(wildcard *.gcda)
+
+re : fclean all
 
 .PHONY: all clean fclean re
 """
