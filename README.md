@@ -10,7 +10,7 @@ A Python script for creating a basic C project structure.
 
 This script sets up a basic project structure with optional components such as Epitech header, custom initialization, unit tests, and a library. The script prompts the user for their desired options and creates the corresponding files and directories based on their choices.
 
-# Requirements : 
+# Requirements :
 
 * Install Python 3: https://www.python.org/downloads/
 * Install inquirerPy library:
@@ -24,7 +24,7 @@ pip install inquirer
 
 <br />
 
-* Git clone the repositery :<br /> 
+* Git clone the repositery :<br />
 ```
 git clone git@github.com:Kcarttigueane/C_repo_Initializer.git
 ```
@@ -32,20 +32,20 @@ git clone git@github.com:Kcarttigueane/C_repo_Initializer.git
 ```
 cd C_repo_Initializer
 ```
-* Make the script file executable:<br /> 
+* Make the script file executable:<br />
 ```
-chmod +x main.py
+chmod +x CRI.py
 ```
 
-* Making the script executable and running it from anywhere in your shell<br /> 
+* Making the script executable and running it from anywhere in your shell<br />
 To run the script from anywhere in your shell, move it to a directory in your PATH, such as /usr/local/bin:
 ```
-sudo mv main.py /usr/local/bin/
+sudo mv CRI.py /usr/local/bin/
 ```
 
 * Run the script using the following command:<br />
 ```
-./main.py
+./CRI.py
 ```
 
 * Follow the prompt to choose your desired options
