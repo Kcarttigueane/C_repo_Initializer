@@ -58,6 +58,9 @@ GITIGNORE_FILENAME = ".gitignore"
 MAKEFILE_FILENAME = "Makefile"
 MAIN_FILENAME = "main.c"
 
+CLANG_TIDY_FILENAME = ".clang-tidy"
+CLANG_FORMAT_FILENAME = ".clang-format"
+
 DIRECTORY_NAMES = ['include', 'src', 'lib', 'tests']
 
 
@@ -159,13 +162,247 @@ HEADER_MAKEFILE_CONTENT = f"""\
 ##
 """
 
+CLANG_FORMAT_CONTENT = f"""\
+Language: Cpp
+BasedOnStyle: Google
+AccessModifierOffset: -2
+AlignAfterOpenBracket: Align
+AlignConsecutiveAssignments: None
+AlignOperands: Align
+AllowAllArgumentsOnNextLine: true
+AllowAllConstructorInitializersOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortBlocksOnASingleLine: Empty
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Never # To avoid conflict, set this "Never" and each "if statement" should include brace when coding
+AllowShortLambdasOnASingleLine: Inline
+AllowShortLoopsOnASingleLine: false
+AlwaysBreakAfterReturnType: None
+AlwaysBreakTemplateDeclarations: Yes
+BinPackArguments: true
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterFunction: true
+  AfterCaseLabel: false
+  AfterClass: false
+  AfterStruct: false
+  AfterControlStatement: Never
+  AfterEnum: false
+  AfterNamespace: false
+  AfterUnion: false
+  AfterExternBlock: false
+  BeforeCatch: false
+  BeforeElse: false
+  BeforeLambdaBody: false
+  IndentBraces: false
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false
+BreakBeforeBinaryOperators: None
+BreakBeforeTernaryOperators: true
+BreakConstructorInitializers: BeforeColon
+BreakInheritanceList: BeforeColon
+ColumnLimit: 80
+CompactNamespaces: false
+ContinuationIndentWidth: 4
+Cpp11BracedListStyle: true
+DerivePointerAlignment: false # Make sure the * or & align on the left
+EmptyLineBeforeAccessModifier: LogicalBlock
+FixNamespaceComments: true
+IncludeBlocks: Preserve
+IndentCaseLabels: true
+IndentWidth: 4
+KeepEmptyLinesAtTheStartOfBlocks: true
+MaxEmptyLinesToKeep: 1
+NamespaceIndentation: None
+ObjCSpaceAfterProperty: false
+ObjCSpaceBeforeProtocolList: true
+PointerAlignment: Left
+ReflowComments: false
+SeparateDefinitionBlocks: Always # Only support for clang-format 14
+SpaceAfterCStyleCast: false
+SpaceAfterLogicalNot: false
+SpaceAfterTemplateKeyword: true
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeCpp11BracedList: false
+SpaceBeforeCtorInitializerColon: true
+SpaceBeforeInheritanceColon: true
+SpaceBeforeParens: ControlStatements
+SpaceBeforeRangeBasedForLoopColon: true
+SpaceBeforeSquareBrackets: false
+SpaceInEmptyParentheses: false
+SpacesBeforeTrailingComments: 2
+SpacesInAngles: false
+SpacesInCStyleCastParentheses: false
+SpacesInContainerLiterals: false
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+Standard: c++11
+TabWidth: 4
+UseTab: Never
+IndentPPDirectives: AfterHash
+"""
+
+CLANG_TIDY_CONTENT = f"""\
+# Generated from CLion Inspection settings
+---
+Checks: '-*,
+bugprone-argument-comment,
+bugprone-assert-side-effect,
+bugprone-bad-signal-to-kill-thread,
+bugprone-branch-clone,
+bugprone-copy-constructor-init,
+bugprone-dangling-handle,
+bugprone-dynamic-static-initializers,
+bugprone-fold-init-type,
+bugprone-forward-declaration-namespace,
+bugprone-forwarding-reference-overload,
+bugprone-inaccurate-erase,
+bugprone-incorrect-roundings,
+bugprone-integer-division,
+bugprone-lambda-function-name,
+bugprone-macro-parentheses,
+bugprone-macro-repeated-side-effects,
+bugprone-misplaced-operator-in-strlen-in-alloc,
+bugprone-misplaced-pointer-arithmetic-in-alloc,
+bugprone-misplaced-widening-cast,
+bugprone-move-forwarding-reference,
+bugprone-multiple-statement-macro,
+bugprone-no-escape,
+bugprone-not-null-terminated-result,
+bugprone-parent-virtual-call,
+bugprone-posix-return,
+bugprone-reserved-identifier,
+bugprone-sizeof-container,
+bugprone-sizeof-expression,
+bugprone-spuriously-wake-up-functions,
+bugprone-string-constructor,
+bugprone-string-integer-assignment,
+bugprone-string-literal-with-embedded-nul,
+bugprone-suspicious-enum-usage,
+bugprone-suspicious-include,
+bugprone-suspicious-memory-comparison,
+bugprone-suspicious-memset-usage,
+bugprone-suspicious-missing-comma,
+bugprone-suspicious-semicolon,
+bugprone-suspicious-string-compare,
+bugprone-swapped-arguments,
+bugprone-terminating-continue,
+bugprone-throw-keyword-missing,
+bugprone-too-small-loop-variable,
+bugprone-undefined-memory-manipulation,
+bugprone-undelegated-constructor,
+bugprone-unhandled-self-assignment,
+bugprone-unused-raii,
+bugprone-unused-return-value,
+bugprone-use-after-move,
+bugprone-virtual-near-miss,
+cert-dcl21-cpp,
+cert-dcl58-cpp,
+cert-err34-c,
+cert-err52-cpp,
+cert-err60-cpp,
+cert-flp30-c,
+cert-msc50-cpp,
+cert-msc51-cpp,
+cert-str34-c,
+cppcoreguidelines-interfaces-global-init,
+cppcoreguidelines-narrowing-conversions,
+cppcoreguidelines-pro-type-member-init,
+cppcoreguidelines-pro-type-static-cast-downcast,
+cppcoreguidelines-slicing,
+google-default-arguments,
+google-explicit-constructor,
+google-runtime-operator,
+hicpp-exception-baseclass,
+hicpp-multiway-paths-covered,
+misc-misplaced-const,
+misc-new-delete-overloads,
+misc-no-recursion,
+misc-non-copyable-objects,
+misc-throw-by-value-catch-by-reference,
+misc-unconventional-assign-operator,
+misc-uniqueptr-reset-release,
+modernize-avoid-bind,
+modernize-concat-nested-namespaces,
+modernize-deprecated-headers,
+modernize-deprecated-ios-base-aliases,
+modernize-loop-convert,
+modernize-make-shared,
+modernize-make-unique,
+modernize-pass-by-value,
+modernize-raw-string-literal,
+modernize-redundant-void-arg,
+modernize-replace-auto-ptr,
+modernize-replace-disallow-copy-and-assign-macro,
+modernize-replace-random-shuffle,
+modernize-return-braced-init-list,
+modernize-shrink-to-fit,
+modernize-unary-static-assert,
+modernize-use-auto,
+modernize-use-bool-literals,
+modernize-use-emplace,
+modernize-use-equals-default,
+modernize-use-equals-delete,
+modernize-use-nodiscard,
+modernize-use-noexcept,
+modernize-use-nullptr,
+modernize-use-override,
+modernize-use-transparent-functors,
+modernize-use-uncaught-exceptions,
+mpi-buffer-deref,
+mpi-type-mismatch,
+openmp-use-default-none,
+performance-faster-string-find,
+performance-for-range-copy,
+performance-implicit-conversion-in-loop,
+performance-inefficient-algorithm,
+performance-inefficient-string-concatenation,
+performance-inefficient-vector-operation,
+performance-move-const-arg,
+performance-move-constructor-init,
+performance-no-automatic-move,
+performance-noexcept-move-constructor,
+performance-trivially-destructible,
+performance-type-promotion-in-math-fn,
+performance-unnecessary-copy-initialization,
+performance-unnecessary-value-param,
+portability-simd-intrinsics,
+readability-avoid-const-params-in-decls,
+readability-const-return-type,
+readability-container-size-empty,
+readability-convert-member-functions-to-static,
+readability-delete-null-pointer,
+readability-deleted-default,
+readability-inconsistent-declaration-parameter-name,
+readability-make-member-function-const,
+readability-misleading-indentation,
+readability-misplaced-array-index,
+readability-non-const-parameter,
+readability-redundant-control-flow,
+readability-redundant-declaration,
+readability-redundant-function-ptr-dereference,
+readability-redundant-smartptr-get,
+readability-redundant-string-cstr,
+readability-redundant-string-init,
+readability-simplify-subscript-expr,
+readability-static-accessed-through-instance,
+readability-static-definition-in-anonymous-namespace,
+readability-string-compare,
+readability-uniqueptr-delete-release,
+readability-use-anyofallof'
+"""
+
 # ! LANGUAGES and TRANSLATIONS:
+
 
 def get_language():
     try:
         return locale.getdefaultlocale()[0][:2]
     except (TypeError, IndexError):
         return "en"
+
 
 LANGUAGE = "french" if get_language() == "fr" else "english"
 
@@ -209,6 +446,7 @@ def ask_for_lib():
     return ask_question("lib")
 
 # ! FILE CREATION FUNCTIONS :
+
 
 def create_makefile(binary_name, is_epitech_header, is_unit_tests, is_lib):
     root_makefile_content = f"""{HEADER_MAKEFILE_CONTENT if is_epitech_header else ""}
@@ -345,6 +583,15 @@ def create_header_file(is_epitech_header, is_lib):
             lib_file.write(BASIC_HEADER_CONTENT)
         lib_file.write("\n#pragma once")
 
+
+def create_formatter_files():
+    with open(CLANG_TIDY_FILENAME, "w") as file:
+        file.write(CLANG_TIDY_CONTENT)
+
+    with open(CLANG_FORMAT_FILENAME, "w") as file:
+        file.write(CLANG_FORMAT_CONTENT)
+
+
 # ! INIT FUNCTIONS :
 
 def custom_init(binary_name):
@@ -365,8 +612,10 @@ def classic_init(binary_name):
     create_test_makefile(True)
     create_header_file(True, True)
     create_main_filename(True)
+    create_formatter_files()
 
 # ! MAIN :
+
 
 def main():
     binary_name = inquirer.text(
