@@ -28,7 +28,7 @@ pip3 install InquirerPy
 ```
 git clone git@github.com:Kcarttigueane/C_repo_Initializer.git
 ```
-* Go to the clone project : <br />
+* Go to the cloned project : <br />
 ```
 cd C_repo_Initializer
 ```
